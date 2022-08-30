@@ -1,0 +1,7 @@
+version: "3"
+services:
+  api_gateway:
+    image: "nginx"
+    build: ./services/Dockerfile
+    ports:
+      - 80:4343
