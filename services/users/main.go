@@ -14,7 +14,7 @@ func main() {
 
 	var port = ":3535"
 	r.Use(middleware.Logger)
-	r.Get("/api/v1/get", func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/v1/get", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
 	})
 	// run servers
