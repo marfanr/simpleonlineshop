@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/v1%40pod": "file:///home/arfan/simpleonlineshop/config/users_pod.yml"
+    }
+}

@@ -12,6 +12,21 @@ services:
     networks:
       main:
         ipv4_address: 172.21.0.10
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    networks:
+      main:
+        ipv4_address: 172.21.1.10
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq
+    restart: always
+
   user_balancer:
     image: nginx
     environment:
@@ -23,20 +38,25 @@ services:
     networks:
       main:
         ipv4_address: 172.21.0.8
+      user:
+        ipv4_address: 173.21.0.8
   user:
     build: ./services/users
     networks:
-      main:
+      user:
   user_db:
     image: postgres
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - 5430:5432
+    expose:
+      - 5432
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      user:
+
 
 networks:
   main:
@@ -44,6 +64,11 @@ networks:
     ipam:
       config:
         - subnet: 172.21.0.0/16
+  user:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 173.21.0.0/16
 
 volumes:
   db:
