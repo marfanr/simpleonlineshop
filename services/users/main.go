@@ -52,10 +52,9 @@ func main() {
 			conn, err := amqp.Dial("amqp://admin:admin@rabbitmq-con.default.svc.cluster.local")
 			if err != nil {
 				log.Println(err)
-			}
-			if err != nil {
 				time.Sleep(1 * time.Minute)
 			} else {
+				log.Println("Rabbitmq connection success")
 				c <- conn
 				time.Sleep(5 * time.Minute)
 			}
