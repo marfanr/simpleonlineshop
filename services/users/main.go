@@ -3,13 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"net"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/marfanr/simpleonlineshop/services/users/model"
+	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/grpc"
 )
 
@@ -41,14 +44,25 @@ func main() {
 	}
 	go srv.Serve(l)
 	fmt.Println("grpc services running on :7070")
-	// x, _ := userSrv.List(context.Background(), &emptypb.Empty{})
-	// println(x.String())
-	// setup rabbitmq
-	// conn, err := amqp.Dial("amqp://admin:admin@172.21.1.10:5672/")
-	// if err != nil {
-	// 	log.Println(err)
-	// }
-	// defer conn.Close()
+
+	// setup rabbitmq with retry method
+	conn := make(chan *amqp.Connection)
+	go func(c chan *amqp.Connection) {
+		for true {
+			conn, err := amqp.Dial("amqp://admin:admin@rabbitmq-con.default.svc.cluster.local")
+			if err != nil {
+				log.Println(err)
+			}
+			if err != nil {
+				time.Sleep(1 * time.Minute)
+			} else {
+				c <- conn
+				time.Sleep(5 * time.Minute)
+			}
+		}
+	}(conn)
+	con := <-conn
+	defer con.Close()
 	// ch, _ := conn.Channel()
 	// ch.QueueDeclar  e("hello", false, false, false, false, nil)
 

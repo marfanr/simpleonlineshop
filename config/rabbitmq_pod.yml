@@ -14,19 +14,32 @@ spec:
           value:  admin
         - name: RABBITMQ_DEFAULT_PASS
           value: admin      
-      ports:
-      - containerPort:  15672              
+      ports:                                          
+      - containerPort:  15672          
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-service
+  name: rabbitmq-con
+spec:
+  type: ClusterIP
+  selector:
+    app: rabbitmq
+  ports:  
+    - port: 5672
+      targetPort: 5672                      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-web
 spec:
   type: NodePort
   ports:  
     - port: 15672
-      targetPort: 15672
-      nodePort: 30001      
+      targetPort: 15672    
+      nodePort: 30001
   selector:
     app: rabbitmq
+  
       
