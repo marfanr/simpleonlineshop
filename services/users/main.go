@@ -25,7 +25,7 @@ func (UsersServer) Register(ctx context.Context, param *model.User) (*empty.Empt
 	return new(empty.Empty), nil
 }
 
-func (UsersServer) List(ctx context.Context, void *empty.Empty) (*model.UserList, error) {
+func (UsersServer) Auth(ctx context.Context, param *model.AuthParam) (*model.UserList, error) {
 	return localStorage, nil
 }
 
@@ -36,7 +36,7 @@ func main() {
 	localStorage.List = make([]*model.User, 0)
 
 	srv := grpc.NewServer()
-	var userSrv UsersServer
+	var userSrv model.UsersServer
 	model.RegisterUsersServer(srv, userSrv)
 	l, e := net.Listen("tcp", ":7070")
 	if e != nil {
