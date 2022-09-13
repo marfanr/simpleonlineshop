@@ -143,53 +143,6 @@ func (x *AuthParam) GetPassword() string {
 	return ""
 }
 
-type UserList struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	List []*User `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
-}
-
-func (x *UserList) Reset() {
-	*x = UserList{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_user_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UserList) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UserList) ProtoMessage() {}
-
-func (x *UserList) ProtoReflect() protoreflect.Message {
-	mi := &file_user_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UserList.ProtoReflect.Descriptor instead.
-func (*UserList) Descriptor() ([]byte, []int) {
-	return file_user_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *UserList) GetList() []*User {
-	if x != nil {
-		return x.List
-	}
-	return nil
-}
-
 var File_user_proto protoreflect.FileDescriptor
 
 var file_user_proto_rawDesc = []byte{
@@ -204,17 +157,14 @@ var file_user_proto_rawDesc = []byte{
 	0x61, 0x72, 0x61, 0x6d, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73,
 	0x77, 0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73,
-	0x77, 0x6f, 0x72, 0x64, 0x22, 0x2a, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74,
-	0x12, 0x1e, 0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0a,
-	0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74,
-	0x32, 0x5f, 0x0a, 0x05, 0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x30, 0x0a, 0x08, 0x52, 0x65, 0x67,
-	0x69, 0x73, 0x74, 0x65, 0x72, 0x12, 0x0a, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x55, 0x73, 0x65,
-	0x72, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x12, 0x24, 0x0a, 0x04, 0x41,
-	0x75, 0x74, 0x68, 0x12, 0x0a, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x1a,
-	0x0e, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x4c, 0x69, 0x73, 0x74, 0x22,
-	0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x77, 0x6f, 0x72, 0x64, 0x32, 0x60, 0x0a, 0x05, 0x55, 0x73, 0x65, 0x72, 0x73, 0x12, 0x30, 0x0a,
+	0x08, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x12, 0x0a, 0x2e, 0x6d, 0x61, 0x69, 0x6e,
+	0x2e, 0x55, 0x73, 0x65, 0x72, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x12,
+	0x25, 0x0a, 0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x0f, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x41,
+	0x75, 0x74, 0x68, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x1a, 0x0a, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e,
+	0x55, 0x73, 0x65, 0x72, 0x22, 0x00, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x6d, 0x6f, 0x64, 0x65,
+	0x6c, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -229,24 +179,22 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_user_proto_goTypes = []interface{}{
 	(*User)(nil),          // 0: main.User
 	(*AuthParam)(nil),     // 1: main.AuthParam
-	(*UserList)(nil),      // 2: main.UserList
-	(*emptypb.Empty)(nil), // 3: google.protobuf.Empty
+	(*emptypb.Empty)(nil), // 2: google.protobuf.Empty
 }
 var file_user_proto_depIdxs = []int32{
-	0, // 0: main.UserList.list:type_name -> main.User
-	0, // 1: main.Users.Register:input_type -> main.User
-	0, // 2: main.Users.Auth:input_type -> main.User
-	3, // 3: main.Users.Register:output_type -> google.protobuf.Empty
-	2, // 4: main.Users.Auth:output_type -> main.UserList
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: main.Users.Register:input_type -> main.User
+	1, // 1: main.Users.Auth:input_type -> main.AuthParam
+	2, // 2: main.Users.Register:output_type -> google.protobuf.Empty
+	0, // 3: main.Users.Auth:output_type -> main.User
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -279,18 +227,6 @@ func file_user_proto_init() {
 				return nil
 			}
 		}
-		file_user_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserList); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -298,7 +234,7 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -325,7 +261,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type UsersClient interface {
 	Register(ctx context.Context, in *User, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	Auth(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserList, error)
+	Auth(ctx context.Context, in *AuthParam, opts ...grpc.CallOption) (*User, error)
 }
 
 type usersClient struct {
@@ -345,8 +281,8 @@ func (c *usersClient) Register(ctx context.Context, in *User, opts ...grpc.CallO
 	return out, nil
 }
 
-func (c *usersClient) Auth(ctx context.Context, in *User, opts ...grpc.CallOption) (*UserList, error) {
-	out := new(UserList)
+func (c *usersClient) Auth(ctx context.Context, in *AuthParam, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
 	err := c.cc.Invoke(ctx, "/main.Users/Auth", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -357,7 +293,7 @@ func (c *usersClient) Auth(ctx context.Context, in *User, opts ...grpc.CallOptio
 // UsersServer is the server API for Users service.
 type UsersServer interface {
 	Register(context.Context, *User) (*emptypb.Empty, error)
-	Auth(context.Context, *User) (*UserList, error)
+	Auth(context.Context, *AuthParam) (*User, error)
 }
 
 // UnimplementedUsersServer can be embedded to have forward compatible implementations.
@@ -367,7 +303,7 @@ type UnimplementedUsersServer struct {
 func (*UnimplementedUsersServer) Register(context.Context, *User) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
 }
-func (*UnimplementedUsersServer) Auth(context.Context, *User) (*UserList, error) {
+func (*UnimplementedUsersServer) Auth(context.Context, *AuthParam) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Auth not implemented")
 }
 
@@ -394,7 +330,7 @@ func _Users_Register_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 func _Users_Auth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(User)
+	in := new(AuthParam)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -406,7 +342,7 @@ func _Users_Auth_Handler(srv interface{}, ctx context.Context, dec func(interfac
 		FullMethod: "/main.Users/Auth",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).Auth(ctx, req.(*User))
+		return srv.(UsersServer).Auth(ctx, req.(*AuthParam))
 	}
 	return interceptor(ctx, in, info, handler)
 }

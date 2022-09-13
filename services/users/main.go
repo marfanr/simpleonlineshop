@@ -18,22 +18,22 @@ import (
 
 type UsersServer struct{}
 
-var localStorage *model.UserList
+// var localStorage *model.UserList
 
 func (UsersServer) Register(ctx context.Context, param *model.User) (*empty.Empty, error) {
-	localStorage.List = append(localStorage.List, param)
+	// localStorage.List = append(localStorage.List, param)
 	return new(empty.Empty), nil
 }
 
-func (UsersServer) Auth(ctx context.Context, param *model.AuthParam) (*model.UserList, error) {
-	return localStorage, nil
+func (UsersServer) Auth(ctx context.Context, param *model.AuthParam) (*model.User, error) {
+	return &model.User{}, nil
 }
 
 func main() {
 	r := chi.NewRouter()
 	// set up for
-	localStorage = new(model.UserList)
-	localStorage.List = make([]*model.User, 0)
+	// localStorage = new(model.UserList)
+	// localStorage.List = make([]*model.User, 0)
 
 	srv := grpc.NewServer()
 	var userSrv model.UsersServer
@@ -46,15 +46,25 @@ func main() {
 	fmt.Println("grpc services running on :7070")
 
 	// setup rabbitmq with retry method
-	conn := make(chan *amqp.Connection)
+	conn := make(chan *amqp.Connection, 5)
 	go func(c chan *amqp.Connection) {
+		ntry := 0
+		c <- nil
 		for true {
 			conn, err := amqp.Dial("amqp://admin:admin@rabbitmq-con.default.svc.cluster.local")
 			if err != nil {
 				log.Println(err)
-				time.Sleep(1 * time.Minute)
+				if ntry <= 10 {
+					time.Sleep(10 * time.Second)
+				} else if ntry <= 20 {
+					time.Sleep(1 * time.Minute)
+				} else {
+					time.Sleep(3 * time.Minute)
+				}
+				ntry += 1
 			} else {
 				log.Println("Rabbitmq connection success")
+				ntry = 0
 				c <- conn
 				time.Sleep(5 * time.Minute)
 			}
